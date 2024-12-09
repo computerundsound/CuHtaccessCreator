@@ -1,5 +1,6 @@
 {
     "type": "project",
+    "name": "computerundsound/cuhtaccesscreator",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
