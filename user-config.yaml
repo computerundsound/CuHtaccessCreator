@@ -1,7 +1,7 @@
 parameters:
   pathsForSourceAndDestFromProjectRoot:
     #   You can add manny pw.txt / .htpwd pairs, if you have more places to secure.
-    #   Every line has a pw.txt and the corresponding .htpwd
+    #   Every line has a pw.txt and the corresponding .htpwd (you can choose another name)
     #   So you can secure different places with different username/passwort combinations
     #   Here is only the place, where you define the pw.txt and .htpwd paths.
     #
