@@ -1,0 +1,5 @@
+# Copy this into your directory, that you want to secure...
+AuthType Basic
+AuthName "Passwortgeschütztes Verzeichnis"
+AuthUserFile "--- path to your /.htpwd"
+Require valid-user

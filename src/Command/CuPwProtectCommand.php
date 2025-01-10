@@ -3,12 +3,11 @@
 namespace App\Command;
 
 use App\Service\CuHtaccessCreator\CuHtaccessCreator;
+use Exception;
 use SplFileInfo;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -19,31 +18,39 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class CuPwProtectCommand extends Command
 {
 
-    private const PATHS_FROM_ROOT = [
-        '../pw.txt' => '../access/.htpwd'
-    ];
     private CuHtaccessCreator $htaccessCreator;
+    private array $pathsForSourceAndDestFromProjectRoot;
 
-    public function __construct(CuHtaccessCreator $cuHtaccessCreator)
+    public function __construct(CuHtaccessCreator $cuHtaccessCreator, array $pathsForSourceAndDestFromProjectRoot)
     {
-        $this->htaccessCreator   = $cuHtaccessCreator;
+        $this->htaccessCreator = $cuHtaccessCreator;
 
         parent::__construct();
 
 
+        $this->pathsForSourceAndDestFromProjectRoot = $pathsForSourceAndDestFromProjectRoot;
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @return int
+     * @throws Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
+        foreach ($this->pathsForSourceAndDestFromProjectRoot as $paths) {
 
-        foreach (self::PATHS_FROM_ROOT as $srcPath => $destPath) {
+            if (false === key_exists('destFile', $paths) || false === key_exists('sourceFile', $paths)) {
+                throw new Exception('Pathconfiguration in user-config.yaml is wrong');
+            }
 
             $root = $this->getApplication()->getKernel()->getProjectDir() . DIRECTORY_SEPARATOR;
 
-            $srcPath  = new SplFileInfo($root . $srcPath);
-            $destPath = new SplFileInfo($root . $destPath);
+            $srcPath  = new SplFileInfo($root . $paths['sourceFile']);
+            $destPath = new SplFileInfo($root . $paths['destFile']);
 
             $this->htaccessCreator->createHtaccess($io, $srcPath, $destPath);
 
