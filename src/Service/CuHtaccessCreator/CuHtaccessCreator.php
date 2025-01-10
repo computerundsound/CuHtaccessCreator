@@ -23,13 +23,13 @@ class CuHtaccessCreator
     public function createHtaccess(SymfonyStyle $io, SplFileInfo $srcFile, SplFileInfo $destFile): string
     {
 
-        $io->warning(['SrcFile: ' . $srcFile->getPathname(), 'DestFile: ' . $destFile->getPathname()]);
+        $io->info(['SrcFile: ' . $srcFile->getRealPath(), 'DestFile: ' . $destFile->getRealPath()]);
 
         /** @var UserInfo[] $users */
         $users = $this->textFileReader->readTextFile($srcFile);
 
         $io->newLine();
-        $io->writeln('Creating htaccess file ' . $destFile->getPathname());
+        $io->writeln('Creating .htpwd file ' . $destFile->getRealPath());
         $io->newLine();
 
         $htaccessContent = [];
@@ -43,8 +43,7 @@ class CuHtaccessCreator
         }
 
         $htaccessContentString = implode(PHP_EOL, $htaccessContent);
-
-        file_put_contents($destFile->getPathname(), $htaccessContentString);
+        file_put_contents($destFile->getRealPath(), $htaccessContentString);
 
         return $htaccessContentString;
 
