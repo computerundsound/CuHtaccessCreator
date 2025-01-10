@@ -20,7 +20,7 @@ class CuPwProtectCommand extends Command
 {
 
     private const PATHS_FROM_ROOT = [
-        '../pw.txt' => '../secure/.htpwd'
+        '../pw.txt' => '../access/.htpwd'
     ];
     private CuHtaccessCreator $htaccessCreator;
 
@@ -40,7 +40,6 @@ class CuPwProtectCommand extends Command
 
         foreach (self::PATHS_FROM_ROOT as $srcPath => $destPath) {
 
-
             $root = $this->getApplication()->getKernel()->getProjectDir() . DIRECTORY_SEPARATOR;
 
             $srcPath  = new SplFileInfo($root . $srcPath);
@@ -50,7 +49,7 @@ class CuPwProtectCommand extends Command
 
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Passwords inserted successfully.');
 
         return Command::SUCCESS;
     }

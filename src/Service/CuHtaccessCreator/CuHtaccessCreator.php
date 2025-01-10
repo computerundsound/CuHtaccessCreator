@@ -11,8 +11,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CuHtaccessCreator
 {
-
-
     protected TextFileReader $textFileReader;
 
     public function __construct(TextFileReader $textFileReader)
