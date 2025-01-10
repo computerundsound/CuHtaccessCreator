@@ -64,4 +64,3 @@ class CuHtaccessCreator
         return password_hash($pwText, PASSWORD_BCRYPT);
     }
 }
-
