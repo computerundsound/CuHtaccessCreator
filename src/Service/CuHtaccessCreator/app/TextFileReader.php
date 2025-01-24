@@ -32,12 +32,13 @@ class TextFileReader
 
         $elements = explode(':', $line);
 
-        $username          = $elements[0];
-        $password          = $elements[1];
-        $passwordEncrypted = $password;
-        $remark            = $elements[2] ?? '';
+        $elementsTrimmed = array_map('trim', $elements);
 
-        return new UserInfo($username, $password, $passwordEncrypted, $remark);
+        $username          = $elementsTrimmed[0];
+        $password          = $elementsTrimmed[1];
+        $remark            = $elementsTrimmed[2] ?? '';
+
+        return new UserInfo($username, $password, $remark);
 
 
     }
