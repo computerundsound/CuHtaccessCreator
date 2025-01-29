@@ -2,12 +2,10 @@
 
 namespace App\Service\CuHtaccessCreator;
 
-
 use App\Service\CuHtaccessCreator\app\TextFileReader;
 use App\Service\CuHtaccessCreator\app\UserInfo;
 use SplFileInfo;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
 
 class CuHtaccessCreator
 {
@@ -34,8 +32,7 @@ class CuHtaccessCreator
 
         foreach ($users as $user) {
 
-            $io->write($user->getUserName() . ':' . $user->getPwText());
-
+            $io->writeln($user->getUserName() . ':' . $user->getPwText());
             $htaccessContent[] = $this->makeLine($user);
 
         }
